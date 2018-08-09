@@ -14,7 +14,15 @@ struct SPerson
 	int age;
 	double weight;
 };
+//Talk in private
+//I have opportunity to do foregin student intership in Swedish company which develop automotive embedded systems.
+//Then I must take 6 montch non payed vacation because the interships duration is 6 month. they work with QT C++ and embedded linux systems.
+//But the point is that my participation is unconfirmed yet, I'm waiting for secont recrutation step. 
 
+//I have some ideas about the issue reason.
+//The point is that the electrical signals were not defined in IOsignals - yml file.
+//I have already implemented them. 
+//But the question is should I declere them in configit model ?  
 #pragma pack(pop)
 int main()
 {
