@@ -18,11 +18,15 @@ struct SPerson
 //I have opportunity to do foregin student intership in Swedish company which develop automotive embedded systems.
 //Then I must take 6 montch non payed vacation because the interships duration is 6 month. they work with QT C++ and embedded linux systems.
 //But the point is that my participation is unconfirmed yet, I'm waiting for secont recrutation step. 
+//It's unconfirmed and they can rejected me
 
-//I have some ideas about the issue reason.
+//I have some supposion about the issue reason.
 //The point is that the electrical signals were not defined in IOsignals - yml file.
 //I have already implemented them. 
-//But the question is should I declere them in configit model ?  
+//But the question is should I declere them in configit model ? 
+
+//I wrote an email to task reporter about my doubts 
+//Niels Eric Danielsen and I'm waiting for the answer.
 #pragma pack(pop)
 int main()
 {
