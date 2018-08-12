@@ -5,14 +5,15 @@
 
 #include <iostream>
 #include <fstream>
+#include <string>
 
 int main()
 {
-	std::string fileName = "newFile.txt";
+	const char* fileName = "newFile.txt";
 	
 	std::ifstream inFile;
-	inFile.open( fileName );
-	
+	inFile.open(fileName);
+
 	if ( !inFile.is_open() )
 	{
 		return 1;
