@@ -45,7 +45,7 @@ struct SPerson
 //I will know finally decision about the end of this week.
 //About this project : Maciej know everything about new sprint.
 
-//
+//Today is a last day they can 
 #pragma pack(pop)
 int main()
 {
