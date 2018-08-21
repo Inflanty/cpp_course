@@ -52,4 +52,14 @@ namespace caveofprogramming
     return CComplex(real, -imaginary);
   }
 
+  CComplex CComplex::operator ~() const
+  {
+    return CComplex(-real, -imaginary);
+  }
+
+  const bool &CComplex::operator<(const CComplex &other)
+  {
+    return this.getReal < other.getReal;
+  }
+
 } //namespace caveofporgramming

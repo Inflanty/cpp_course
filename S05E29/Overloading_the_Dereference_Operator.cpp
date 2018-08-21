@@ -13,6 +13,7 @@ int main()
   caveofprogramming::CComplex c1(1,5);
   std::cout << c1 << std::endl;
   std::cout << *c1 << std::endl;
+  std::cout << ~c1 << std::endl;
 
   return 0;
 }

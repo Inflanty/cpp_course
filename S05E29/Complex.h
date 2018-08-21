@@ -25,6 +25,10 @@ namespace caveofprogramming
     double getImaginary() const;
 
     CComplex operator*() const;
+
+    CComplex operator~() const;
+
+    bool operator<() const;
   };
   
   std::ostream &operator<<(std::ostream &out, const CComplex &c);
