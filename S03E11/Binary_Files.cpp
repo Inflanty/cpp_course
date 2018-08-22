@@ -16,7 +16,9 @@ struct SPerson
 };
 //Guys, have you a second for a little talk after the meeting ? About my future in the Team.
 //Talk in private
-//I have opportunity to do foregin student intership in Swedish company which develop automotive embedded systems.
+//I had an
+// opportunity to do foregin student intership in Swedish company which 
+// develop automotive embedded systems.
 //Then I must take 6 montch non payed vacation because the interships duration is 6 month. they work with QT C++ and embedded linux systems.
 //But the point is that my participation is unconfirmed yet, I'm waiting for secont recrutation step. I will recieve the finally decision until the end of the week.
 
