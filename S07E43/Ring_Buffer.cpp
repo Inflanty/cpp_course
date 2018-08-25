@@ -20,6 +20,11 @@ int main()
   textring.add("four");
   textring.add("five");
   textring.add("six");
+ 
+  for (CRing<std::string>::Iterator it = textring.begin(); it != textring.end(); it ++)
+  {
+    std::cout << *it << std::endl;
+  }
 
   for(int i = 0; i < textring.size(); i++)
   {
