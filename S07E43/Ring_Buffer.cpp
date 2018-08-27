@@ -17,18 +17,12 @@ int main()
   textring.add("one");
   textring.add("two");
   textring.add("three");
-  textring.add("four");
-  textring.add("five");
-  textring.add("six");
- 
-  for (CRing<std::string>::Iterator it = textring.begin(); it != textring.end(); it ++)
-  {
-    std::cout << *it << std::endl;
-  }
-
-  for(int i = 0; i < textring.size(); i++)
-  {
-    std::cout << textring.get(i) << std::endl;
-  }
+  
+  //for (CRing<std::string>::Iterator it = textring.begin(); it != textring.end(); it ++)
+  //{
+    //std::cout << *it << std::endl;
+  //}
+CRing<std::string>::Iterator it = textring.begin();
+ // std::cout << std::endl;
   return 0;
 }

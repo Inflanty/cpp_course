@@ -44,22 +44,52 @@ public:
   {
     return m_values[pos];
   }
-
+  
+  // Should return the address of first element
   Iterator begin()
   {
-    return Iterator();
+    return Iterator(0, *this);
   }
 
+  // Should return the address of last element
   Iterator end()
   {
-    return Iterator();
+    return Iterator(m_size, *this);
   }
 };
 
 template <class T>
 class CRing<T>::Iterator
 {
+private:
+  int m_pos;
+  CRing m_ring;
 public:
+  Iterator(int pos, CRing &aRing): m_ring(aRing), m_pos(pos)
+  {
   
+  }
+
+  Iterator &operator++(int)
+  {
+    m_pos ++;
+    return *this; 
+  } 
+
+  Iterator &operator++()
+  {
+    m_pos ++;
+    return *this; 
+  }
+
+  T &operator*()
+  {
+    return m_ring.get(m_pos);
+  } 
+
+  bool operator!=(const Iterator &other) const
+  {
+    return m_pos != other.m_pos;
+  }
 }; 
 #endif // _RING_H_
