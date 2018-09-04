@@ -1,4 +1,4 @@
-// ring.h
+// ring_caveofprogramming.h
 
 #ifndef _RING_H_
 #define _RING_H_
@@ -12,6 +12,7 @@ private:
   T *m_values;
   int m_size;
   int m_pos;
+
 public:
   class Iterator;
 public:
@@ -63,22 +64,23 @@ class CRing<T>::Iterator
 {
 private:
   int m_pos;
-  CRing m_ring;
+  CRing &m_ring;
 public:
-  Iterator(int pos, CRing &aRing): m_ring(aRing), m_pos(pos)
+  Iterator(int pos, CRing &aRing) : m_ring(aRing), m_pos(pos)
   {
   
   }
 
   Iterator &operator++(int)
   {
-    m_pos ++;
-    return *this; 
+    Iterator old = *this;
+    ++(*this);
+    return old; 
   } 
 
   Iterator &operator++()
   {
-    m_pos ++;
+    ++m_pos;
     return *this; 
   }
 
@@ -87,9 +89,14 @@ public:
     return m_ring.get(m_pos);
   } 
 
+  bool operator==(const Iterator &other) const
+  {
+    return m_pos == other.m_pos;
+  }
+
   bool operator!=(const Iterator &other) const
   {
-    return m_pos != other.m_pos;
+    return !(*this == other);
   }
-}; 
-#endif // _RING_H_
+};
+#endif // _RING_H_  
