@@ -12,6 +12,8 @@ int main(){
     int const HEIGHT = 600;
     CBitmap Bitmap(WEIGHT, HEIGHT);
 
+    Bitmap.tryFractal();
+
     Bitmap.setColor(174, 0, 116);
     bool result = Bitmap.write("test.bmp");
     if(result)
@@ -23,7 +25,5 @@ int main(){
         cout << "ERROR" << endl;
     }
     
-
-
     return 0;
 }

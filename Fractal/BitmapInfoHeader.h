@@ -20,7 +20,7 @@ struct BitmapInfoHeader {
     int32_t dataSize{0};
     int32_t horizontalResolution{2400};
     int32_t varticalResolution{2400};
-    int32_t colors{0x22222222};
+    int32_t colors{0};
     int32_t importantColors{0};  
 };
 }; // namespace bitmap
