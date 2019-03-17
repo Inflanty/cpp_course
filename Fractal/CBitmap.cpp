@@ -41,26 +41,6 @@ void CBitmap::setColor(uint8_t red, uint8_t green, uint8_t blue)
     }
 }
 
-bool CBitmap::tryFractal()
-{
-    double min = 99999;
-    double max = -99999;
-    for( int y = 0; y < m_height; y ++ )
-    {
-        for( int i = 0; i < m_width; i ++ )
-        {
-            double xFractal = m_width - i;
-            double yFractal = m_height - y;
-
-            if( xFractal < min ) min = xFractal;
-            if( xFractal > max ) max = xFractal;
-
-        }
-    }
-    cout << min << " , " << max << endl;
-    return true;
-}
-
 bool CBitmap::write(string filename)
 { 
     BitmapFileHeader fileHeader;
