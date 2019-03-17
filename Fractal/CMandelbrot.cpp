@@ -38,8 +38,8 @@ int CMandelbrot::getDoubleIterations(double x, double y)
 
 int CMandelbrot::getDoubleIterationsUSER(int x, int y)
 {
-    double xFractal = (x - WIDTH/2)* 4.0/WIDTH;
-    double yFractal = (y - HEIGHT/2)* 4.0/HEIGHT;
+    double xFractal = (x - WIDTH/2)* 8.0/WIDTH;
+    double yFractal = (y - HEIGHT/2)* 8.0/HEIGHT;
     pixelFactor.real(xFractal);
     pixelFactor.imag(yFractal);
     MandelbrotResultBase.real(0);

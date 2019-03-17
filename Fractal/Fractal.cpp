@@ -4,6 +4,8 @@
 // Fractals introduction [PL] : https://rst.software/blog/2018/01/30/fraktale-ukryte-piekno-matematyki/
 
 #include <iostream>
+#include <chrono>
+#include <ctime>
 #include "CBitmap.h"
 #include "CMandelbrot.h"
 
@@ -21,20 +23,34 @@ int main(){
     complex<double> NullPx(0.0, 0.0);
     CMandelbrot Mandelbrot(NullPx);
 
+    auto start = std::chrono::system_clock::now();
+    std::time_t start_time = std::chrono::system_clock::to_time_t(start);
+    std::cout << "Started computation at " << std::ctime(&start_time);
     for( int y = 0; y < HEIGHT; y ++ )
     {
         for( int x = 0; x < WIDTH; x ++ )
         {
             int SinglePixelColor = Mandelbrot.getDoubleIterationsUSER(x, y);
+            if(SinglePixelColor > 256)
+            {
+                Bitmap.setPixel(x, y, 0, 0, 255);    
+            }
             Bitmap.setPixel(x, y, SinglePixelColor/128, 0, (SinglePixelColor/2));
-            cout << "PixelColor = " << SinglePixelColor << endl;
+            
         }
     }
+    auto end = std::chrono::system_clock::now();
+
+
 
     bool result = Bitmap.write("test.bmp");
     if(result)
     {
-        cout << "FINISH" << endl;
+        std::chrono::duration<double> elapsed_seconds = end-start;
+        std::time_t end_time = std::chrono::system_clock::to_time_t(end);
+
+        std::cout << "finished computation at " << std::ctime(&end_time)
+                  << "elapsed time: " << elapsed_seconds.count() << "s\n";
     }
     else
     {
@@ -42,15 +58,4 @@ int main(){
     }
     
     return 0;
-}
-
-bool iteratePixels(void)
-{
-    for( int y = 0; y < HEIGHT; y ++ )
-    {
-        for( int x = 0; x < WIDTH; x ++ )
-        {
-
-        }
-    }
 }
