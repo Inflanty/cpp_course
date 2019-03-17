@@ -24,8 +24,8 @@ public:
     bool write(string filename);
     virtual ~CBitmap();
 
-    int const WIDTH{800};
-    int const HEIGHT{600};
+    int const WIDTH{1920};
+    int const HEIGHT{1080};
 };
 }// namespace bitmap
 

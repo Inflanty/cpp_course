@@ -9,9 +9,9 @@ using namespace std;
 
 class CMandelbrot{
 private:
-static const int MAX_ITERATIONS{255};
-int const WIDTH{800};
-int const HEIGHT{600};
+static const int MAX_ITERATIONS{256};
+int const WIDTH{1920};
+int const HEIGHT{1080};
 
 complex<double> MandelbrotResultBase;
 complex<double> MandelbrotResult;

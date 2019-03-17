@@ -1,5 +1,5 @@
 // Name: Fractal.cpp
-// build command: gcc -std=c++14 CBitmap.cpp CMandelbrot.cpp Fractal.cpp -o Fractal -lstdc++
+// build command: gcc -std=c++14 CBitmap.cpp CMandelbrot.cpp Fractal.cpp -o Fractal -lstdc++ -lm
 
 // Fractals introduction [PL] : https://rst.software/blog/2018/01/30/fraktale-ukryte-piekno-matematyki/
 
@@ -12,13 +12,13 @@ using namespace bitmap;
 
 bool tryFractal(void);
 
-int const WIDTH = 800;
-int const HEIGHT = 600;
+int const WIDTH = 1920;
+int const HEIGHT = 1080;
 
 int main(){
     CBitmap Bitmap(WIDTH, HEIGHT);
     
-    complex<double> NullPx(0, 0);
+    complex<double> NullPx(0.0, 0.0);
     CMandelbrot Mandelbrot(NullPx);
 
     for( int y = 0; y < HEIGHT; y ++ )
@@ -26,7 +26,7 @@ int main(){
         for( int x = 0; x < WIDTH; x ++ )
         {
             int SinglePixelColor = Mandelbrot.getDoubleIterationsUSER(x, y);
-            Bitmap.setPixel(x, y, SinglePixelColor, SinglePixelColor, SinglePixelColor);
+            Bitmap.setPixel(x, y, SinglePixelColor/128, 0, (SinglePixelColor/2));
             cout << "PixelColor = " << SinglePixelColor << endl;
         }
     }

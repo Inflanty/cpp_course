@@ -7,7 +7,7 @@
 
 using namespace std;
 
-CMandelbrot::CMandelbrot(complex<double> arg_PixelNull): MandelbrotResultBase.real(0), MandelbrotResultBase.imag(0), MandelbrotResult(arg_PixelNull), pixelFactor(arg_PixelNull)
+CMandelbrot::CMandelbrot(complex<double> arg_PixelNull): MandelbrotResultBase(0.0, 0.0), MandelbrotResult(arg_PixelNull), pixelFactor(arg_PixelNull)
 {
 
 }
@@ -33,13 +33,17 @@ int CMandelbrot::getDoubleIterations(double x, double y)
         }
     }
 
-    return 1;
+    return 0;
 }
 
 int CMandelbrot::getDoubleIterationsUSER(int x, int y)
 {
-    pixelFactor.real(x);
-    pixelFactor.imag(y);
+    double xFractal = (x - WIDTH/2)* 4.0/WIDTH;
+    double yFractal = (y - HEIGHT/2)* 4.0/HEIGHT;
+    pixelFactor.real(xFractal);
+    pixelFactor.imag(yFractal);
+    MandelbrotResultBase.real(0);
+    MandelbrotResultBase.imag(0);
     int iteration = 0;
 
     do
@@ -49,7 +53,7 @@ int CMandelbrot::getDoubleIterationsUSER(int x, int y)
         iteration ++;
     } while ((abs<double>(MandelbrotResult) <= 2.0) && (iteration <= MAX_ITERATIONS));
 
-    return iteration;
+    return (iteration-1);
 }
 
 void CMandelbrot::doSomethingFun(complex<double> singlePixel)
