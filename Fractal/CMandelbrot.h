@@ -4,6 +4,7 @@
 #define _CMANDELBROT_H_
 
 #include <complex>
+#include <vector>
 
 using namespace std;
 
@@ -23,6 +24,8 @@ virtual ~CMandelbrot(void);
 
 int getDoubleIterations(double x, double y);
 int getDoubleIterationsUSER(int x, int y);
+complex<double> getDoubleIterationsCOMPLEX(int x, int y);
+vector<double> domainColorization(complex<double> singlePixel, int iteration);
 void doSomethingFun(complex<double> singlePixel);
 
 };

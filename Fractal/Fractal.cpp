@@ -1,5 +1,5 @@
 // Name: Fractal.cpp
-// build command: gcc -std=c++14 CBitmap.cpp CMandelbrot.cpp Fractal.cpp -o Fractal -lstdc++ -lm
+// build command: gcc -std=c++14 CColorConverter.cpp CBitmap.cpp CMandelbrot.cpp Fractal.cpp -o Fractal -lstdc++ -lm
 
 // Fractals introduction [PL] : https://rst.software/blog/2018/01/30/fraktale-ukryte-piekno-matematyki/
 
@@ -8,6 +8,10 @@
 #include <ctime>
 #include "CBitmap.h"
 #include "CMandelbrot.h"
+#include "CColorConverter.h"
+
+// #define USER_ITERATION
+// #define COMPLEX_ITERATION
 
 using namespace std;
 using namespace bitmap;
@@ -26,6 +30,7 @@ int main(){
     auto start = std::chrono::system_clock::now();
     std::time_t start_time = std::chrono::system_clock::to_time_t(start);
     std::cout << "Started computation at " << std::ctime(&start_time);
+    #ifdef USER_ITERATION
     for( int y = 0; y < HEIGHT; y ++ )
     {
         for( int x = 0; x < WIDTH; x ++ )
@@ -39,11 +44,21 @@ int main(){
             
         }
     }
+    #endif // USER_ITERATION
+    #ifdef COMPLEX_ITERATION
+    for( int y = 0; y < HEIGHT; y ++ )
+    {
+        for( int x = 0; x < WIDTH; x ++ )
+        {
+            complex<double> SinglePixelColor = Mandelbrot.getDoubleIterationsCOMPLEX(x, y);
+            cout << "PIXEL : " << x << "x" << y << " -> " << SinglePixelColor.real() << ", " << SinglePixelColor.imag() << endl;
+        }
+    }
+    #endif // COMPLEX_ITERATION
+    
     auto end = std::chrono::system_clock::now();
-
-
-
     bool result = Bitmap.write("test.bmp");
+
     if(result)
     {
         std::chrono::duration<double> elapsed_seconds = end-start;
@@ -56,6 +71,13 @@ int main(){
     {
         cout << "ERROR" << endl;
     }
-    
+
+    CHSL test( 180, 1, 0.2);
+    CRGB testRGB(0, 0, 0);
+
+    testRGB = HSLToRGB(test);
+
+    cout << "Output values : " << static_cast<unsigned>(testRGB.R) << ", " << static_cast<unsigned>(testRGB.G) << ", " << static_cast<unsigned>(testRGB.B) << endl;
+
     return 0;
 }

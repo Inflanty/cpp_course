@@ -4,6 +4,7 @@
 
 #include <complex>
 #include <iostream>
+#include <vector>
 
 using namespace std;
 
@@ -38,8 +39,8 @@ int CMandelbrot::getDoubleIterations(double x, double y)
 
 int CMandelbrot::getDoubleIterationsUSER(int x, int y)
 {
-    double xFractal = (x - WIDTH/2)* 8.0/WIDTH;
-    double yFractal = (y - HEIGHT/2)* 8.0/HEIGHT;
+    double xFractal = (x - WIDTH/2)* 4.0/WIDTH;
+    double yFractal = (y - HEIGHT/2)* 4.0/HEIGHT;
     pixelFactor.real(xFractal);
     pixelFactor.imag(yFractal);
     MandelbrotResultBase.real(0);
@@ -56,6 +57,41 @@ int CMandelbrot::getDoubleIterationsUSER(int x, int y)
     return (iteration-1);
 }
 
+complex<double> CMandelbrot::getDoubleIterationsCOMPLEX(int x, int y)
+{
+    double xFractal = (x - WIDTH/2)* 8.0/WIDTH;
+    double yFractal = (y - HEIGHT/2)* 8.0/HEIGHT;
+    pixelFactor.real(xFractal);
+    pixelFactor.imag(yFractal);
+    MandelbrotResultBase.real(0);
+    MandelbrotResultBase.imag(0);
+    int iteration = 0;
+
+    do
+    {
+        MandelbrotResult = pow(MandelbrotResultBase, 2) + pixelFactor;
+        MandelbrotResultBase = MandelbrotResult;
+        iteration ++;
+    } while ((abs<double>(MandelbrotResult) <= 2.0) && (iteration <= MAX_ITERATIONS));
+
+    return MandelbrotResult;
+}
+
+vector<double> CMandelbrot::domainColorization(complex<double> singlePixel, int iteration)
+{
+    double hue = arg(singlePixel);
+    double saturation = abs(singlePixel);
+    double lightness = 1;
+
+    if ( iteration > MAX_ITERATIONS )
+    {
+        lightness = 0;
+    }
+    
+    vector<double> HSL{hue, saturation, lightness};
+    return HSL;   
+}
+
 void CMandelbrot::doSomethingFun(complex<double> singlePixel)
 {
     if((abs<double>(singlePixel)) > 2.0)
@@ -65,3 +101,15 @@ void CMandelbrot::doSomethingFun(complex<double> singlePixel)
 
     }
 }
+
+/*
+###COLORS TABLE###
+-1 : 	(0, 255, 255)
+0:      (0, 0, 0)
+1:      (255, 0, 0)
+
+-1i :   (0, 255, 0)
+0i :    (0 , 0, 0)
+1i:     (255, 0, 255)
+
+*/
