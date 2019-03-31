@@ -18,6 +18,7 @@ private:
     
 
 public:
+    CBitmap();
     CBitmap(int width, int height);
     void setPixel(int x, int y, uint8_t red, uint8_t green, uint8_t blue);
     void setColor(uint8_t red, uint8_t green, uint8_t blue);

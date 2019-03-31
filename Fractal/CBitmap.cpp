@@ -12,6 +12,11 @@ using namespace bitmap;
 using namespace std;
 
 namespace bitmap{
+CBitmap::CBitmap()
+{
+    
+}
+
 CBitmap::CBitmap(int width, int height): m_width(width), m_height(height), m_pPixels(new uint8_t[width*height*3]{})
 {
 
