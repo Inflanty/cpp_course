@@ -1,5 +1,7 @@
 // Name: CMandelbrot.cpp
 
+// gcc -std=c++14 CColorConverter.cpp CBitmap.cpp CMandelbrot.cpp Fractal.cpp -o Fractal -lstdc++ -lm
+
 #include "CMandelbrot.h"
 #include "CColorConverter.h"
 
@@ -127,7 +129,7 @@ vector<uint8_t> CMandelbrot::getDoubleIterationsDOMAIN(int x, int y)
         return RGB;
     
 // rgb(254, 222, 252)
-    // cout << static_cast<unsigned>(RGB[0]) << ", " << static_cast<unsigned>(RGB[1]) << ", "  << static_cast<unsigned>(RGB[2]) << " ??? " << lightness << endl;
+    cout << static_cast<unsigned>(RGB[0]) << ", " << static_cast<unsigned>(RGB[1]) << ", "  << static_cast<unsigned>(RGB[2]) << " ??? " << lightness << endl;
 }
 
 vector<uint8_t> CMandelbrot::domainColorization()

@@ -4,12 +4,14 @@
 #include <math.h>
 #include <utility>
 #include <complex>
+#include <cassert>
 
 #include "CBitmap.h"
 #include "CFractalCreator.h"
 #include "CZoomList.h"
 #include "CZoom.h"
 #include "CMandelbrot.h"
+#include "CRGB.h"
 
 using namespace bitmap;
 using namespace std;
@@ -30,6 +32,58 @@ CFractalCreator::CFractalCreator(const int width, const int height):
 CFractalCreator::~CFractalCreator()
 {
 
+}
+
+void CFractalCreator::buildFractal(std::string name)
+{
+    calculateIterations();
+    calculateTotalIterations();
+    calculateRangeTotals();
+    drawFractal();
+    
+    bool resultCreator = writeBitmap(name);
+    (void) resultCreator;
+
+}
+
+void CFractalCreator::addRange(double rangeEnd, const CRGB& rgb)
+{
+    m_ranges.push_back(rangeEnd*MAX_ITERATIONS);
+    m_colors.push_back(rgb);
+
+    if(m_bGotFirstRange)
+    {
+        m_rangesTotals.push_back(0);
+    }
+    m_bGotFirstRange = true;
+    
+}
+
+void CFractalCreator::calculateRangeTotals()
+{
+    int rangeIndex = 0;
+
+    for(int i = 0; i < MAX_ITERATIONS; i++)
+    {
+        int pixels = histogram[i];  
+
+        if(i >= m_ranges[rangeIndex+1])
+        {
+            rangeIndex ++;
+        }
+
+        m_rangesTotals[rangeIndex] += pixels;
+    }
+
+    int overallTotal = 0;
+
+    for(int value: m_rangesTotals)
+    {
+        std::cout << "Range total : " << value << std::endl;
+        overallTotal += value;
+    }
+
+    std::cout << "Overall total 1 : " << overallTotal << std::endl;
 }
 
 int CFractalCreator::getIterations(double x, double y)
@@ -75,33 +129,44 @@ void CFractalCreator::calculateTotalIterations()
     {
         m_total += histogram[i]; 
     }
+
+    std::cout << "Overall total 2 : " << m_total << std::endl;
 }
 
 void CFractalCreator::drawFractal()
 {
-    calculateIterations();
-    calculateTotalIterations();
+    CRGB startColor(0, 0, 0);
+    CRGB endColor(0, 0, 255);
+    CRGB colorDiff = endColor - startColor;
     
     for (int y = 0; y < m_height; y ++)
     {
         for (int x = 0; x < m_width; x ++)
         {
-            uint8_t red = 0, green = 0, blue = 0;
-
             int iterations = fractal[y * m_width + x];
+            
+            int range = getRange(iterations);
+            int rangeTotal = m_rangesTotals[range];
+            int rangeStart = m_ranges[range];
+
+            CRGB& satartColor = m_colors[range];
+            CRGB& endColor = m_colors[range + 1];
+            CRGB colorDiff = endColor - startColor;
+
+            uint8_t red = 0, green = 0, blue = 0;
 
             if(iterations != MAX_ITERATIONS)
             {
-                double hue = 0.0;
+                int totalPixels = 0;
 
-                for (int i = 0; i <= iterations; i++)
+                for (int i = rangeStart; i <= iterations; i++)
                 {
-                    hue += ((double)histogram[i])/m_total;
+                    totalPixels += histogram[i];
                 }
 
-                red = (40  *  hue);
-                green = (240  *  hue);
-                blue = (255  *  hue);
+                red = startColor.r + colorDiff.r*(double)totalPixels/rangeTotal;
+                green = startColor.g + colorDiff.g*(double)totalPixels/rangeTotal;
+                blue = startColor.b + colorDiff.b*(double)totalPixels/rangeTotal;
             }
             m_bitmap.setPixel(x, y, red, green, blue);
         }
@@ -117,4 +182,25 @@ bool CFractalCreator::writeBitmap(std::string name)
 {
     m_bitmap.write(name);
     return 1;
+}
+
+int CFractalCreator::getRange(int iterations) const
+{
+    int range = 0;
+
+    for(int i = 1; i < m_ranges.size(); i ++)
+    {
+        range = i;
+
+        if(m_ranges[i] > iterations)
+        {
+            break;
+        }
+    }
+        range --;
+
+        assert(range > -1);
+        assert(range < m_ranges.size());
+
+        return range;
 }

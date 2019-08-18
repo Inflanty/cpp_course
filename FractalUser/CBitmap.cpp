@@ -76,4 +76,5 @@ CBitmap::~CBitmap()
 {
     
 }
-}
+
+}  // namespace bitmap

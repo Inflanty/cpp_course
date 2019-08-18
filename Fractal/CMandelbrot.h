@@ -7,7 +7,7 @@ using namespace std;
 
 class CMandelbrot{
 public:
-static const int MAX_ITERATIONS{100};
+static const int MAX_ITERATIONS{10000};
 int const WIDTH{1920};
 int const HEIGHT{1080};
 
